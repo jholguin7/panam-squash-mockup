@@ -1,0 +1,972 @@
+<meta charset="utf-8">
+<title>PANAM SQUASH — PSQ‑01 Concept Unit</title>
+<style>
+  :root{
+    --desk:#DCD9D0;
+    --panel:#F0EDE4;
+    --panel-2:#EAE7DD;
+    --seam:#C9C5B8;
+    --ink:#181713;
+    --ink-2:#6E6A5E;
+    --led-screen:#111110;
+    --led-dot:#E8E6DF;
+    --led-dim:#2A2A28;
+    --red:#D8433F;
+    --magenta:#BE3A64;
+    --purple:#8C3A78;
+    --blue:#3D4C9E;
+    --yellow:#E8D44D;
+    --shadow:0 2px 3px rgba(40,36,25,.10), 0 12px 30px rgba(40,36,25,.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --desk:#161512; }
+  }
+  :root[data-theme="dark"]{ --desk:#161512; }
+  :root[data-theme="light"]{ --desk:#DCD9D0; }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--desk); color:var(--ink);
+    font-family:"Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{
+    font-family:"Cascadia Mono","SF Mono",Consolas,ui-monospace,monospace;
+    text-transform:uppercase; letter-spacing:.1em;
+  }
+  .disp{
+    font-family:"Bahnschrift","Avenir Next Condensed","Arial Narrow",sans-serif;
+    font-stretch:condensed; font-weight:800; text-transform:uppercase;
+  }
+
+  .sheet{max-width:1280px; margin:0 auto; padding:40px 26px 90px}
+
+  /* ═══ panel primitives ═══ */
+  .pnl{
+    background:var(--panel);
+    border-radius:14px;
+    box-shadow:0 1px 2px rgba(40,36,25,.08), 0 14px 34px rgba(40,36,25,.16), inset 0 1px 0 rgba(255,255,255,.75);
+    position:relative;
+  }
+  .screw{display:none}
+  .hwlabel{font-size:10px; color:var(--ink); margin-bottom:12px; text-align:center}
+
+  /* ═══ hero ═══ */
+  .hero{display:grid; grid-template-columns:1fr}
+  .hero-copy{padding:46px 44px 30px; display:flex; flex-direction:column}
+  .logo-row{display:flex; align-items:center; gap:16px}
+  .stripes{display:flex; width:96px; height:52px; transform:skewX(-24deg); border-radius:3px; overflow:hidden; flex-shrink:0}
+  .stripes i{flex:1}
+  .stripes i:nth-child(1){background:var(--red)}
+  .stripes i:nth-child(2){background:var(--magenta)}
+  .stripes i:nth-child(3){background:var(--purple)}
+  .stripes i:nth-child(4){background:var(--blue)}
+  .logo-word{font-size:27px; line-height:.95; font-weight:900; letter-spacing:.01em;
+    font-family:"Segoe UI",system-ui,sans-serif; text-transform:uppercase}
+  .hero h1{
+    margin:auto 0 0; padding:42px 0 26px;
+    font-size:clamp(52px,6.4vw,96px); line-height:.94; letter-spacing:.005em; text-wrap:balance;
+  }
+  .hero-copy p{margin:0 0 34px; max-width:44ch; color:var(--ink-2); font-size:14px; line-height:1.65}
+  .hero-foot{border-top:1px solid var(--seam); padding-top:16px; display:flex; justify-content:space-between; font-size:11px}
+
+  .hw{display:grid; grid-template-columns:1.45fr 1fr; grid-auto-rows:min-content; gap:16px}
+  .hwmod{padding:26px 22px 24px; display:flex; flex-direction:column; align-items:center}
+  .hwmod .grow{margin:auto}
+
+  /* LED scoreboard */
+  .ledbox{
+    background:var(--led-screen); border-radius:14px; padding:20px 22px 16px;
+    width:100%; box-shadow:inset 0 2px 10px rgba(0,0,0,.9), 0 1px 0 rgba(255,255,255,.6);
+  }
+  .ledcols{display:flex; justify-content:space-between; gap:14px}
+  .ledcol{text-align:center; flex:1}
+  .ledcol .t{font-size:9px; color:#8B897F; margin-bottom:10px}
+  .ledcol canvas{display:block; margin:0 auto}
+  .ledcol .bar{height:3px; border-radius:2px; margin-top:10px}
+  .ledfoot{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:16px;
+    font-size:9px; color:#B9B7AC}
+  .ylled{width:9px;height:9px;border-radius:50%;background:var(--yellow); box-shadow:0 0 8px var(--yellow); animation:blink 1.6s infinite}
+  @keyframes blink{50%{opacity:.35}}
+  @media (prefers-reduced-motion: reduce){ .ylled,.dotlive{animation:none !important} }
+
+  .knob-row{display:flex; gap:26px; justify-content:center; width:100%}
+  .knob-item{text-align:center}
+  .knob-item .hwlabel{margin-bottom:10px}
+  .grille{
+    width:150px; height:96px; margin:auto;
+    background:radial-gradient(circle, #24221C 1.7px, transparent 1.9px) 0 0/14px 14px;
+    -webkit-mask:radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 78%);
+            mask:radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 78%);
+  }
+
+  /* ═══ section head ═══ */
+  .sechead{display:flex; align-items:baseline; gap:16px; padding:64px 4px 22px}
+  .sechead h2{font-size:30px; margin:0}
+  .sechead .mono{font-size:11px; color:var(--ink-2)}
+  .sechead::after{content:""; flex:1; border-top:1px solid var(--seam); transform:translateY(-6px)}
+
+  /* ═══ modules / devices ═══ */
+  .modules{display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:16px}
+  .module{padding:26px 26px 34px; display:flex; flex-direction:column}
+  .mod-head{display:flex; align-items:baseline; justify-content:space-between; margin:2px 2px 8px}
+  .mod-num{font-size:10px; color:var(--ink-2)}
+  .mod-feat{font-size:9px; padding:3px 9px; border:1px solid currentColor; border-radius:3px}
+  .f1{color:var(--magenta)} .f2{color:var(--purple)} .f3{color:var(--red)} .f0{color:var(--blue)}
+  .mod-title{font-size:23px; margin:0 2px 6px}
+  .mod-desc{font-size:12.5px; color:var(--ink-2); line-height:1.55; margin:0 2px 24px; min-height:3em}
+
+  /* device = cream hardware phone */
+  .device{
+    width:308px; margin:0 auto; background:var(--panel-2);
+    border-radius:24px; padding:16px 13px 12px;
+    box-shadow:0 2px 4px rgba(40,36,25,.10), 0 22px 44px rgba(40,36,25,.24), inset 0 1px 0 rgba(255,255,255,.8);
+    position:relative;
+  }
+  .scr-frame{
+    background:#201F1B; border-radius:14px; padding:7px;
+    box-shadow:inset 0 1px 6px rgba(0,0,0,.75);
+  }
+  .screen{
+    background:#F2F0E8; border-radius:9px; overflow:hidden;
+    height:560px; display:flex; flex-direction:column; color:#1B1A16;
+  }
+  .dev-foot{display:flex; justify-content:space-between; align-items:center; padding:10px 10px 2px; font-size:8px; color:var(--ink-2)}
+  .dev-foot .dot{width:6px;height:6px;border-radius:50%}
+
+  /* app UI — instrument style */
+  .appbar{
+    background:#1B1A16; color:#EDEBE2; display:flex; align-items:center; gap:9px;
+    padding:11px 13px;
+  }
+  .appbar .ministripe{display:flex;width:24px;height:12px;transform:skewX(-24deg);border-radius:1px;overflow:hidden}
+  .appbar .ministripe i{flex:1}
+  .appbar .ministripe i:nth-child(1){background:var(--red)}
+  .appbar .ministripe i:nth-child(2){background:var(--magenta)}
+  .appbar .ministripe i:nth-child(3){background:var(--blue)}
+  .appbar b{font-size:11px; letter-spacing:.14em; font-weight:700}
+  .appbar .scr{margin-left:auto; font-size:8px; color:#8B897F}
+  .body{flex:1; overflow:hidden; padding:12px 11px 0; display:flex; flex-direction:column; gap:9px}
+
+  .card{
+    background:#FBF9F3; border-radius:9px; padding:11px 12px;
+    box-shadow:0 1px 2px rgba(40,36,25,.10), 0 5px 14px rgba(40,36,25,.13);
+  }
+  .lbl{font-size:8px; color:#75715F; margin-bottom:8px; display:flex; align-items:center; gap:6px}
+  .dotlive{width:6px;height:6px;border-radius:50%;background:var(--red); box-shadow:0 0 5px var(--red); animation:blink 1.4s infinite}
+
+  .row{display:flex; align-items:center; gap:8px; padding:7px 0; border-bottom:1px dashed #D8D4C6; font-size:11px}
+  .row:last-child{border-bottom:0; padding-bottom:2px}
+  .rk{font-family:ui-monospace,monospace; font-size:9.5px; width:26px; font-variant-numeric:tabular-nums; color:#75715F}
+  .flag{font-size:7.5px; font-family:ui-monospace,monospace; background:#EBE8DD; border-radius:3px; padding:2px 5px; letter-spacing:.05em; color:#4A473D}
+  .nm{font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .st{font-size:8px; font-family:ui-monospace,monospace; letter-spacing:.04em}
+  .st.live{color:var(--red); font-weight:700} .st.up{color:var(--blue)} .st.done{color:#75715F}
+
+  /* mini LED panels inside app */
+  .miniled{
+    background:var(--led-screen); border-radius:8px; padding:12px 12px 10px;
+    box-shadow:inset 0 1px 6px rgba(0,0,0,.85), 0 5px 14px rgba(40,36,25,.22);
+  }
+  .miniled .t{font-size:8px; color:#8B897F; letter-spacing:.1em; text-transform:uppercase;
+    font-family:ui-monospace,monospace; display:flex; align-items:center; gap:6px; margin-bottom:9px}
+  .ledline{display:flex; justify-content:space-between; align-items:center; gap:8px}
+  .ledline .who{font-size:9px; color:#D9D7CC; font-family:ui-monospace,monospace; letter-spacing:.06em; width:32%}
+  .ledline .who.r{text-align:right}
+  .ledline canvas{display:block}
+  .ubar{height:3px; border-radius:2px; margin-top:8px}
+
+  /* physical switch tabs */
+  .tabs{display:flex; gap:6px}
+  .tab{
+    font-size:8.5px; font-family:ui-monospace,monospace; letter-spacing:.08em; padding:6px 11px;
+    border-radius:6px; color:#75715F; background:#FBF9F3;
+    box-shadow:0 1px 2px rgba(40,36,25,.10), 0 4px 10px rgba(40,36,25,.12);
+  }
+  .tab.on{background:#1B1A16; color:#F2F0E8; box-shadow:0 3px 8px rgba(0,0,0,.28)}
+
+  /* physical nav — minimal key row */
+  .navbar{
+    display:flex; align-items:stretch;
+    background:transparent; border-top:1px solid #E0DDD2;
+    padding:0; margin-top:auto;
+  }
+  .nav{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    padding:15px 0 17px; border-right:1px solid #E0DDD2;
+  }
+  .nav:last-child{border-right:0}
+  .navbtn{display:flex; align-items:center; justify-content:center}
+  .navbtn svg{display:block}
+  .navbtn svg *{stroke:#A8A494; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
+  .nav.on{
+    background:rgba(40,36,25,.045);
+    box-shadow:inset 0 2px 5px rgba(40,36,25,.15);
+  }
+  .nav.on .navbtn svg *{stroke:#181713}
+
+  .btn-dark{
+    background:#1B1A16; color:#EDEBE2; text-align:center; font-size:9px;
+    font-family:ui-monospace,monospace; letter-spacing:.12em; padding:11px; border-radius:8px;
+    box-shadow:0 5px 14px rgba(0,0,0,.28);
+  }
+  .avatar{width:50px;height:50px;border-radius:10px; object-fit:cover; display:block;
+    filter:grayscale(1) contrast(1.05);
+    box-shadow:0 2px 6px rgba(40,36,25,.25)}
+  .stats3{display:flex; text-align:center; border-top:1px dashed #D8D4C6; margin-top:10px; padding-top:9px}
+  .stats3>div{flex:1}
+  .stats3 b{display:block; font-size:15px; font-variant-numeric:tabular-nums}
+  .stats3 span{font-size:7px; font-family:ui-monospace,monospace; letter-spacing:.05em; color:#75715F}
+
+  /* VU meters + form strip (stats screen) */
+  .vu-row{display:flex; align-items:center; gap:8px; padding:5px 0}
+  .vu-lbl{font-size:7.5px; color:#8B897F; font-family:ui-monospace,monospace; letter-spacing:.07em; width:86px; flex-shrink:0}
+  .vu{display:flex; gap:2px; flex:1}
+  .vu i{flex:1; height:11px; background:#242422; border-radius:1px}
+  .vu i.on{background:#EDECE4}
+  .vu i.hot{background:var(--yellow)}
+  .vu-val{font-size:8.5px; color:#EDECE4; font-family:ui-monospace,monospace; width:34px; text-align:right; font-variant-numeric:tabular-nums}
+  .form-strip{display:flex; gap:5px; align-items:center}
+  .form-strip i{width:13px; height:13px; border-radius:3px; display:flex; align-items:center; justify-content:center;
+    font-size:7px; font-family:ui-monospace,monospace; color:#111110; background:#EDECE4}
+  .form-strip i.l{background:#3A3936; color:#8B897F}
+
+  /* ═══ desktop browser mockups ═══ */
+  .dt-module{padding:26px 26px 30px}
+  .browser-wrap{overflow-x:auto; border-radius:20px}
+  .browser{
+    min-width:880px; background:var(--panel-2); border-radius:20px; padding:12px;
+    box-shadow:0 2px 4px rgba(40,36,25,.10), 0 22px 44px rgba(40,36,25,.22), inset 0 1px 0 rgba(255,255,255,.8);
+  }
+  .b-top{display:flex; align-items:center; gap:12px; padding:2px 6px 12px}
+  .b-dots{display:flex; gap:6px}
+  .b-dots i{width:9px; height:9px; border-radius:50%; background:#D5D1C4; box-shadow:inset 0 1px 1px rgba(40,36,25,.18)}
+  .b-url{
+    flex:1; max-width:340px; margin:0 auto; text-align:center;
+    background:#F7F5EE; border-radius:7px; padding:6px 14px;
+    font-family:ui-monospace,monospace; font-size:9.5px; letter-spacing:.08em; color:#75715F;
+    box-shadow:inset 0 1px 3px rgba(40,36,25,.12);
+  }
+  .b-lang{display:flex; gap:4px}
+  .b-lang span{font-size:8px; font-family:ui-monospace,monospace; letter-spacing:.06em; padding:4px 8px; border-radius:5px; color:#8A8678}
+  .b-lang span.on{background:#1B1A16; color:#F2F0E8}
+  .b-frame{background:#201F1B; border-radius:14px; padding:7px; box-shadow:inset 0 1px 6px rgba(0,0,0,.75)}
+  .b-screen{background:#F2F0E8; border-radius:9px; overflow:hidden; display:flex; height:560px; color:#1B1A16}
+  .side{
+    width:180px; flex-shrink:0; border-right:1px solid #E0DDD2;
+    padding:16px 12px; display:flex; flex-direction:column; gap:3px;
+  }
+  .side .s-logo{display:flex; align-items:center; gap:8px; padding:0 6px 16px}
+  .side .s-logo b{font-size:10px; letter-spacing:.1em; font-weight:800}
+  .s-item{
+    display:flex; align-items:center; gap:9px;
+    font-size:9px; font-family:ui-monospace,monospace; letter-spacing:.08em;
+    padding:9px 10px; border-radius:7px; color:#75715F;
+  }
+  .s-item svg{flex-shrink:0}
+  .s-item svg *{stroke:#A8A494; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
+  .s-item.on{background:rgba(40,36,25,.05); box-shadow:inset 0 1.5px 3px rgba(40,36,25,.13); color:#181713}
+  .s-item.on svg *{stroke:#181713}
+  .s-foot{margin-top:auto; padding:0 6px; font-size:7.5px; color:#A8A494; font-family:ui-monospace,monospace; letter-spacing:.08em; line-height:1.9}
+  .main{flex:1; padding:16px; display:flex; flex-direction:column; gap:10px; overflow:hidden; min-width:0}
+  .rail{width:240px; flex-shrink:0; border-left:1px solid #E0DDD2; padding:16px 14px; display:flex; flex-direction:column; gap:10px; overflow:hidden}
+  .cols2{display:flex; gap:10px}
+  .cols2>*{flex:1; min-width:0}
+  .pts{font-family:ui-monospace,monospace; font-size:9px; color:#75715F; font-variant-numeric:tabular-nums; width:52px; text-align:right}
+  /* knockout bracket — llaves con conectores */
+  .bkt-head{display:flex; margin-bottom:6px}
+  .bkt-head span{flex:1; text-align:center; font-size:8px; color:#75715F; font-family:ui-monospace,monospace; letter-spacing:.1em}
+  .bkt-head i{width:16px; flex-shrink:0}
+  .bkt{display:flex; flex:1; min-height:0}
+  .rnd{flex:1; display:flex; flex-direction:column; justify-content:space-around; min-width:0}
+  .conn{width:16px; flex-shrink:0; display:flex; flex-direction:column; justify-content:space-around}
+  .conn .j{border:1.5px solid #C9C5B8; border-left:0; border-radius:0 5px 5px 0; width:100%}
+  .conn.c1 .j{height:25%}
+  .conn.c2 .j{height:50%}
+  .match{
+    background:#FBF9F3; border-radius:8px; padding:7px 9px;
+    box-shadow:0 1px 2px rgba(40,36,25,.10), 0 4px 10px rgba(40,36,25,.11);
+  }
+  .m-row{display:flex; align-items:center; gap:6px; padding:3px 0; font-size:10px; min-width:0}
+  .m-row .nm2{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .m-row .sc{margin-left:auto; font-family:ui-monospace,monospace; font-size:9px; font-variant-numeric:tabular-nums; color:#75715F; flex-shrink:0}
+  .m-row.w{font-weight:700}
+  .m-row.w .sc{color:#181713; font-weight:700}
+  .m-live{font-size:7.5px; font-family:ui-monospace,monospace; letter-spacing:.08em; color:var(--red); margin-top:3px}
+  .bkt.sm .match{padding:5px 7px; border-radius:6px}
+  .bkt.sm .m-row{font-size:8px; padding:2px 0; gap:4px}
+  .bkt.sm .m-row .sc{font-size:7.5px}
+  .bkt.sm .m-live{font-size:6.5px}
+  .bkt.sm + .bkt-foot, .bkt-foot{margin-top:8px}
+
+  .caption{font-size:11px; color:var(--ink-2); line-height:1.75; padding:0 2px}
+  .caption b{color:var(--ink)}
+
+  .footstrip{
+    margin-top:16px; display:flex; flex-wrap:wrap; gap:0; padding:0;
+    font-size:10px; overflow:hidden;
+  }
+  .footstrip>div{padding:14px 18px; border-right:1px solid var(--seam)}
+  .footstrip>div:last-child{border-right:0; margin-left:auto}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr}
+    .hero h1{padding-top:30px}
+  }
+  @media (max-width:520px){
+    .modules{grid-template-columns:1fr}
+    .module{padding:22px 12px 28px}
+    .knob-row{flex-wrap:wrap}
+  }
+</style>
+
+<div class="sheet">
+
+  <!-- ═══════════════ HERO / CONCEPT UNIT ═══════════════ -->
+  <header class="hero">
+    <div class="pnl hero-copy">
+      <span class="screw tl"></span><span class="screw tr"></span>
+      <span class="screw bl"></span><span class="screw br"></span>
+      <div class="logo-row">
+        <span class="stripes"><i></i><i></i><i></i><i></i></span>
+        <span class="logo-word">Panam<br>Squash</span>
+      </div>
+      <h1 class="disp">Toda América.<br>Un solo marcador.</h1>
+      <p>La app oficial de la Federación Panamericana de Squash. Jugadores de la
+      región en el circuito PSA, torneos de la federación y transmisiones en
+      vivo — todo en tiempo real, en un solo lugar.</p>
+      <div class="hero-foot mono">
+        <span>PSQ—01&nbsp;/&nbsp;CONCEPT&nbsp;UNIT</span>
+        <span>REV&nbsp;B&nbsp;·&nbsp;20.07.2026</span>
+      </div>
+    </div>
+
+    </header>
+
+  <div class="sechead"><span class="mono">SEC/01</span><h2 class="disp">Pantallas</h2></div>
+
+  <div class="modules">
+
+    <!-- ═══ S.01 HOME ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.01</span><span class="mod-feat mono f0">CORE</span></div>
+      <h3 class="mod-title disp">Home</h3>
+      <p class="mod-desc">Lo importante primero: quién está jugando ahora y el próximo torneo de la federación.</p>
+      <div class="device">
+        <span class="screw tl"></span><span class="screw tr"></span>
+        <span class="screw bl"></span><span class="screw br"></span>
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="ministripe"><i></i><i></i><i></i></span><b>PANAM SQUASH</b><span class="scr mono">HOME</span></div>
+          <div class="body">
+            <div class="miniled">
+              <div class="t"><span class="dotlive"></span>EN CANCHA AHORA</div>
+              <div class="ledline">
+                <canvas class="led" data-text="4" data-scale="3" aria-label="4 jugadores en cancha"></canvas>
+                <span style="font-size:9px;color:#B9B7AC;font-family:ui-monospace,monospace;letter-spacing:.05em;text-align:right">JUGADORES&nbsp;PANAM<br>EN&nbsp;TORNEOS&nbsp;PSA</span>
+              </div>
+              <div class="ubar" style="background:linear-gradient(90deg,var(--red),var(--magenta),var(--purple),var(--blue))"></div>
+            </div>
+            <div class="card">
+              <div class="lbl mono">PRÓXIMO TORNEO FPS</div>
+              <div style="font-weight:800;font-size:13px">Panamericano por Equipos 2026</div>
+              <div style="font-size:9.5px;color:#75715F;margin-top:3px" class="mono">GUAYAQUIL, ECU · 12–18 OCT</div>
+            </div>
+            <div class="card">
+              <div class="lbl mono">MOVIMIENTOS DEL RANKING</div>
+              <div class="row"><span class="rk">#3</span><span class="flag">PER</span><span class="nm">Diego Elías</span><span class="st up">▲ 1</span></div>
+              <div class="row"><span class="rk">#4</span><span class="flag">USA</span><span class="nm">Olivia Weaver</span><span class="st up">▲ 2</span></div>
+              <div class="row"><span class="rk">#14</span><span class="flag">MEX</span><span class="nm">Leonel Cárdenas</span><span class="st done">—</span></div>
+            </div>
+          </div>
+          <div class="navbar">
+            <div class="nav on"><span class="pip"></span>HOME</div>
+            <div class="nav"><span class="pip"></span>PLAYERS</div>
+            <div class="nav"><span class="pip"></span>TORNEOS</div>
+            <div class="nav"><span class="pip"></span>LIVE</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—02</span><span class="dot" style="background:var(--red)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.02 PLAYERS ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.02</span><span class="mod-feat mono f1">FEATURE&nbsp;1</span></div>
+      <h3 class="mod-title disp">Players — Live</h3>
+      <p class="mod-desc">Todos los jugadores panamericanos en PSA: quién juega ahora, en qué torneo, y su ranking mundial actual.</p>
+      <div class="device">
+        <span class="screw tl"></span><span class="screw tr"></span>
+        <span class="screw bl"></span><span class="screw br"></span>
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="ministripe"><i></i><i></i><i></i></span><b>PLAYERS</b><span class="scr mono">PSA&nbsp;LIVE</span></div>
+          <div class="body">
+            <div class="tabs"><span class="tab on">TODOS</span><span class="tab">M</span><span class="tab">F</span><span class="tab">PAÍS ▾</span></div>
+            <div class="card" style="border-left:3px solid var(--red)">
+              <div class="lbl mono"><span class="dotlive"></span>JUGANDO AHORA — KARACHI OPEN</div>
+              <div class="row"><span class="rk">#31</span><span class="flag">COL</span><span class="nm">Juan Vargas</span><span class="st live">R2 · EN VIVO</span></div>
+              <div class="row"><span class="rk">#46</span><span class="flag">COL</span><span class="nm">Matías Knudsen</span><span class="st up">QF · HOY 14:00</span></div>
+            </div>
+            <div class="card">
+              <div class="lbl mono">RANKING MUNDIAL — AMÉRICAS</div>
+              <div class="row"><span class="rk">#3</span><span class="flag">PER</span><span class="nm">Diego Elías</span><span class="st done">M</span></div>
+              <div class="row"><span class="rk">#4</span><span class="flag">USA</span><span class="nm">Olivia Weaver</span><span class="st done">F</span></div>
+              <div class="row"><span class="rk">#10</span><span class="flag">USA</span><span class="nm">Amanda Sobhy</span><span class="st done">F</span></div>
+              <div class="row"><span class="rk">#14</span><span class="flag">MEX</span><span class="nm">Leonel Cárdenas</span><span class="st done">M</span></div>
+              <div class="row"><span class="rk">#14</span><span class="flag">USA</span><span class="nm">Marina Stefanoni</span><span class="st done">F</span></div>
+              <div class="row"><span class="rk">#26</span><span class="flag">COL</span><span class="nm">Miguel Rodríguez</span><span class="st done">M</span></div>
+              <div class="row"><span class="rk">#27</span><span class="flag">USA</span><span class="nm">Timothy Brownell</span><span class="st done">M</span></div>
+            </div>
+          </div>
+          <div class="navbar">
+            <div class="nav"><span class="pip"></span>HOME</div>
+            <div class="nav on"><span class="pip"></span>PLAYERS</div>
+            <div class="nav"><span class="pip"></span>TORNEOS</div>
+            <div class="nav"><span class="pip"></span>LIVE</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—03</span><span class="dot" style="background:var(--magenta)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.03 PERFIL ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.03</span><span class="mod-feat mono f1">FEATURE&nbsp;1</span></div>
+      <h3 class="mod-title disp">Perfil de jugador</h3>
+      <p class="mod-desc">Click en un jugador: evolución de ranking en el tiempo, estadísticas y su cuadro del torneo actual.</p>
+      <div class="device">
+        <span class="screw tl"></span><span class="screw tr"></span>
+        <span class="screw bl"></span><span class="screw br"></span>
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="ministripe"><i></i><i></i><i></i></span><b>PERFIL</b><span class="scr mono">PSA&nbsp;#3</span></div>
+          <div class="body">
+            <div class="card" style="display:flex;gap:11px;align-items:center">
+              <img class="avatar" src="data:image/jpeg;base64,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" alt="Diego Elías">
+              <div>
+                <div style="font-weight:900;font-size:15px;letter-spacing:-.01em">DIEGO ELÍAS</div>
+                <div class="mono" style="font-size:7.5px;color:#75715F;margin-top:3px">PER · WORLD #3 · "EL PUMA"</div>
+              </div>
+            </div>
+            <div class="miniled">
+              <div class="t">EVOLUCIÓN RANKING · 2019–2026</div>
+              <canvas id="rankchart" aria-label="Evolución del ranking de Diego Elías: del puesto 8 en 2019 al 1 en 2025, actualmente 3"></canvas>
+              <div style="display:flex;justify-content:space-between;margin-top:7px;font-size:7px;color:#8B897F;font-family:ui-monospace,monospace;letter-spacing:.08em">
+                <span>2019</span><span style="color:var(--yellow)">#1 · 2025</span><span>HOY #3</span>
+              </div>
+              <div class="ubar" style="background:var(--blue)"></div>
+            </div>
+            <div class="card">
+              <div class="stats3" style="border-top:0;margin-top:0;padding-top:2px">
+                <div><b>13</b><span>TÍTULOS PSA</span></div>
+                <div><b>#1</b><span>MEJOR RANK</span></div>
+                <div><b>2×</b><span>CAMPEÓN PANAM</span></div>
+              </div>
+            </div>
+            <div class="miniled">
+              <div class="t">PRÓXIMO PARTIDO · QATAR CLASSIC R16</div>
+              <div class="ledline">
+                <span class="who">ELÍAS</span>
+                <canvas class="led" data-text="VS" data-scale="2" aria-label="Elías versus Asal"></canvas>
+                <span class="who r">ASAL</span>
+              </div>
+              <div class="ubar" style="background:var(--purple)"></div>
+            </div>
+            <div class="btn-dark">VER CUADRO DEL TORNEO →</div>
+          </div>
+          <div class="navbar">
+            <div class="nav"><span class="pip"></span>HOME</div>
+            <div class="nav on"><span class="pip"></span>PLAYERS</div>
+            <div class="nav"><span class="pip"></span>TORNEOS</div>
+            <div class="nav"><span class="pip"></span>LIVE</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—04</span><span class="dot" style="background:var(--purple)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.04 TORNEOS ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.04</span><span class="mod-feat mono f2">FEATURE&nbsp;2</span></div>
+      <h3 class="mod-title disp">Torneos FPS</h3>
+      <p class="mod-desc">Los torneos de la federación con cuadros y resultados en tiempo real, conectados a Club Locker.</p>
+      <div class="device">
+        <span class="screw tl"></span><span class="screw tr"></span>
+        <span class="screw bl"></span><span class="screw br"></span>
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="ministripe"><i></i><i></i><i></i></span><b>TORNEOS</b><span class="scr mono">FPS&nbsp;2026</span></div>
+          <div class="body">
+            <div class="miniled">
+              <div class="t"><span class="dotlive"></span>EN JUEGO · PANAM JUNIOR · LIMA · CANCHA CENTRAL</div>
+              <div class="ledline">
+                <span class="who">TORRES<br>PER</span>
+                <canvas class="led" data-text="2-1" data-scale="3" aria-label="Torres 2, Luna 1"></canvas>
+                <span class="who r">LUNA<br>MEX</span>
+              </div>
+              <div class="ledline" style="margin-top:8px;justify-content:center">
+                <span style="font-size:8px;color:var(--yellow);font-family:ui-monospace,monospace;letter-spacing:.1em">3ER GAME · 8–6</span>
+              </div>
+              <div class="ubar" style="background:var(--red)"></div>
+            </div>
+            <div class="card">
+              <div class="lbl mono">CALENDARIO 2026 — 5 TORNEOS</div>
+              <div class="row"><span class="nm">Panam. Master · Medellín</span><span class="st done">FINALIZADO</span></div>
+              <div class="row"><span class="nm">Panam. Junior · Lima</span><span class="st live">EN JUEGO</span></div>
+              <div class="row"><span class="nm">Panam. Equipos · Guayaquil</span><span class="st up">OCT</span></div>
+              <div class="row"><span class="nm">Panam. Adulto · Bogotá</span><span class="st up">NOV</span></div>
+              <div class="row"><span class="nm">Copa Federación · CDMX</span><span class="st up">DIC</span></div>
+            </div>
+            <div class="btn-dark">CUADROS Y RESULTADOS · CLUB LOCKER →</div>
+          </div>
+          <div class="navbar">
+            <div class="nav"><span class="pip"></span>HOME</div>
+            <div class="nav"><span class="pip"></span>PLAYERS</div>
+            <div class="nav on"><span class="pip"></span>TORNEOS</div>
+            <div class="nav"><span class="pip"></span>LIVE</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—05</span><span class="dot" style="background:var(--blue)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.05 LIVE ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.05</span><span class="mod-feat mono f3">FEATURE&nbsp;3</span></div>
+      <h3 class="mod-title disp">En vivo</h3>
+      <p class="mod-desc">Un solo lugar para todas las transmisiones: el canal oficial de YouTube de Panam Squash, a un click.</p>
+      <div class="device">
+        <span class="screw tl"></span><span class="screw tr"></span>
+        <span class="screw bl"></span><span class="screw br"></span>
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="ministripe"><i></i><i></i><i></i></span><b>LIVE</b><span class="scr mono">YOUTUBE</span></div>
+          <div class="body">
+            <div class="miniled" style="height:138px;display:flex;flex-direction:column">
+              <div class="t"><span class="dotlive"></span>PANAM SQUASH TV · 1.2K VIENDO</div>
+              <div style="flex:1;display:flex;align-items:center;justify-content:center">
+                <div style="width:46px;height:34px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(216,67,63,.5)">
+                  <span style="border-left:12px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent"></span>
+                </div>
+              </div>
+              <div style="font-size:9px;color:#D9D7CC;font-family:ui-monospace,monospace;letter-spacing:.06em">PANAM&nbsp;JUNIOR&nbsp;·&nbsp;SEMIFINALES</div>
+              <div class="ubar" style="background:var(--red)"></div>
+            </div>
+            <div class="btn-dark" style="background:var(--red)">▶ VER EN YOUTUBE</div>
+            <div class="card">
+              <div class="lbl mono">PRÓXIMAS TRANSMISIONES</div>
+              <div class="row"><span class="nm">Semifinal 2 · Cancha central</span><span class="st up">HOY 17:00</span></div>
+              <div class="row"><span class="nm">Finales · Todas las categorías</span><span class="st up">SÁB 15:00</span></div>
+              <div class="row"><span class="nm">Panam. Equipos · Día 1</span><span class="st up">12 OCT</span></div>
+            </div>
+            <div class="card">
+              <div class="lbl mono">ANTERIORES</div>
+              <div class="row"><span class="nm">Final Master Medellín 2026</span><span class="st done">VOD →</span></div>
+              <div class="row"><span class="nm">Semis Master Medellín</span><span class="st done">VOD →</span></div>
+            </div>
+          </div>
+          <div class="navbar">
+            <div class="nav"><span class="pip"></span>HOME</div>
+            <div class="nav"><span class="pip"></span>PLAYERS</div>
+            <div class="nav"><span class="pip"></span>TORNEOS</div>
+            <div class="nav on"><span class="pip"></span>LIVE</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—06</span><span class="dot" style="background:var(--yellow)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.06 STATS ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.06</span><span class="mod-feat mono f1">FEATURE&nbsp;1</span></div>
+      <h3 class="mod-title disp">Stats del jugador</h3>
+      <p class="mod-desc">Analytics con la data acumulada de PSA y SquashInfo: métricas, forma reciente e insights automáticos.</p>
+      <div class="device">
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="ministripe"><i></i><i></i><i></i></span><b>STATS</b><span class="scr mono">TEMPORADA&nbsp;25/26</span></div>
+          <div class="body">
+            <div class="card" style="display:flex;gap:10px;align-items:center">
+              <img class="avatar" style="width:38px;height:38px" src="" data-elias alt="Diego Elías">
+              <div>
+                <div style="font-weight:900;font-size:13px">DIEGO ELÍAS</div>
+                <div class="mono" style="font-size:7px;color:#75715F;margin-top:2px">42 PARTIDOS · 34W – 8L</div>
+              </div>
+            </div>
+            <div class="miniled">
+              <div class="t">MÉTRICAS · ÚLTIMOS 12 MESES</div>
+              <div class="vu-row"><span class="vu-lbl">WIN RATE</span><span class="vu"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i></span><span class="vu-val">81%</span></div>
+              <div class="vu-row"><span class="vu-lbl">VS TOP-10</span><span class="vu"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i><i></i></span><span class="vu-val">58%</span></div>
+              <div class="vu-row"><span class="vu-lbl">GAMES GANADOS</span><span class="vu"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="vu-val">72%</span></div>
+              <div class="vu-row"><span class="vu-lbl">GANA 1ER GAME</span><span class="vu"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i></span><span class="vu-val">67%</span></div>
+              <div class="ubar" style="background:var(--magenta)"></div>
+            </div>
+            <div class="miniled">
+              <div class="t">FORMA · ÚLTIMOS 10 PARTIDOS</div>
+              <div class="form-strip"><i>W</i><i>W</i><i>W</i><i class="l">L</i><i>W</i><i>W</i><i>W</i><i>W</i><i class="l">L</i><i>W</i></div>
+              <div class="ubar" style="background:var(--blue)"></div>
+            </div>
+            <div class="miniled">
+              <div class="t">HEAD-TO-HEAD · VS ASAL</div>
+              <div class="ledline">
+                <span class="who">ELÍAS</span>
+                <canvas class="led" data-text="4-9" data-scale="3" aria-label="Head to head: Elías 4, Asal 9"></canvas>
+                <span class="who r">ASAL</span>
+              </div>
+              <div class="ubar" style="background:var(--purple)"></div>
+            </div>
+            <div class="card" style="border-left:3px solid var(--yellow)">
+              <div class="lbl mono">AUTO-INSIGHT</div>
+              <div style="font-size:10.5px;line-height:1.5">Cuando gana el primer game, Elías cierra el partido el <b>89%</b> de las veces — el mejor ratio del top 10.</div>
+            </div>
+          </div>
+          <div class="navbar">
+            <div class="nav">HOME</div>
+            <div class="nav on">PLAYERS</div>
+            <div class="nav">TORNEOS</div>
+            <div class="nav">LIVE</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—07</span><span class="dot" style="background:var(--magenta)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.07 CUADRO ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.07</span><span class="mod-feat mono f2">FEATURE&nbsp;2</span></div>
+      <h3 class="mod-title disp">Cuadro del torneo</h3>
+      <p class="mod-desc">Las llaves del torneo en el celular: cuartos, semis y final conectados, con el partido en juego en vivo.</p>
+      <div class="device">
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="ministripe"><i></i><i></i><i></i></span><b>CUADRO</b><span class="scr mono">PANAM&nbsp;JUNIOR</span></div>
+          <div class="body">
+            <div class="miniled">
+              <div class="t"><span class="dotlive"></span>SEMIFINAL 1 · CANCHA CENTRAL</div>
+              <div class="ledline">
+                <span class="who">TORRES · PER</span>
+                <canvas class="led" data-text="2-1" data-scale="3" aria-label="Torres 2, Luna 1"></canvas>
+                <span class="who r">LUNA · MEX</span>
+              </div>
+              <div class="ubar" style="background:var(--red)"></div>
+            </div>
+            <div class="bkt-head"><span>QF</span><i></i><span>SF</span><i></i><span>FINAL</span></div>
+            <div class="bkt sm">
+              <div class="rnd">
+                <div class="match"><div class="m-row w"><span class="nm2">TORRES</span><span class="sc">3–0</span></div><div class="m-row"><span class="nm2">DUARTE</span><span class="sc">0–3</span></div></div>
+                <div class="match"><div class="m-row w"><span class="nm2">LUNA</span><span class="sc">3–1</span></div><div class="m-row"><span class="nm2">CASTRO</span><span class="sc">1–3</span></div></div>
+                <div class="match"><div class="m-row w"><span class="nm2">SILVA</span><span class="sc">3–2</span></div><div class="m-row"><span class="nm2">PEREZ</span><span class="sc">2–3</span></div></div>
+                <div class="match"><div class="m-row w"><span class="nm2">MORALES</span><span class="sc">3–1</span></div><div class="m-row"><span class="nm2">RIOS</span><span class="sc">1–3</span></div></div>
+              </div>
+              <div class="conn c1"><span class="j"></span><span class="j"></span></div>
+              <div class="rnd">
+                <div class="match"><div class="m-row w"><span class="nm2">TORRES</span><span class="sc">2–1</span></div><div class="m-row"><span class="nm2">LUNA</span><span class="sc">1–2</span></div><div class="m-live">● EN JUEGO</div></div>
+                <div class="match"><div class="m-row"><span class="nm2">SILVA</span><span class="sc">HOY</span></div><div class="m-row"><span class="nm2">MORALES</span><span class="sc">17:00</span></div></div>
+              </div>
+              <div class="conn c2"><span class="j"></span></div>
+              <div class="rnd">
+                <div class="match"><div class="m-row"><span class="nm2">—</span><span class="sc">SÁB</span></div><div class="m-row"><span class="nm2">—</span><span class="sc">15:00</span></div></div>
+              </div>
+            </div>
+            <div class="btn-dark bkt-foot">CUADRO COMPLETO · CLUB LOCKER →</div>
+          </div>
+          <div class="navbar">
+            <div class="nav">HOME</div>
+            <div class="nav">PLAYERS</div>
+            <div class="nav on">TORNEOS</div>
+            <div class="nav">LIVE</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—08</span><span class="dot" style="background:var(--purple)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.08 NOTES ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.08</span><span class="mod-feat mono f0">SPEC</span></div>
+      <h3 class="mod-title disp">Notas de diseño</h3>
+      <p class="mod-desc">Decisiones que definen el producto, acordadas en la conversación con la federación.</p>
+      <div class="caption">
+        <b>ACCESO —</b> App 100% pública, sin registro. Login únicamente para
+        administradores de la FPS (cargar torneos, links de streaming, novedades).<br><br>
+        <b>IDIOMAS —</b> Español, inglés y portugués desde el día uno.<br><br>
+        <b>DATA —</b> Rankings y jugadores desde fuentes PSA/SquashInfo con crédito
+        y atribución; torneos FPS vía Club Locker; streaming vía el canal oficial
+        de YouTube de Panam Squash.<br><br>
+        <b>PLATAFORMA —</b> Una sola base de código para iOS, Android y web. La app
+        coexiste con la página web actual de la federación.<br><br>
+        <b>ESTA MAQUETA —</b> Rankings reales al 20.07.2026 (fuente: SquashInfo).
+        Partidos, torneos FPS y cifras de perfil son ilustrativos.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sechead"><span class="mono">SEC/02</span><h2 class="disp">Desktop</h2></div>
+
+  <!-- ═══ D.01 DASHBOARD ═══ -->
+  <div class="pnl module dt-module">
+    <div class="mod-head"><span class="mod-num mono">D.01</span><span class="mod-feat mono f1">FEATURE&nbsp;1</span></div>
+    <h3 class="mod-title disp">Dashboard — Players Live</h3>
+    <p class="mod-desc" style="min-height:0">La misma app en el navegador: ranking Américas completo, jugadores en cancha y perfil al costado. ES / EN / PT desde el día uno.</p>
+    <div class="browser-wrap"><div class="browser">
+      <div class="b-top">
+        <span class="b-dots"><i></i><i></i><i></i></span>
+        <span class="b-url">panamsquash.app/players</span>
+        <span class="b-lang"><span class="on">ES</span><span>EN</span><span>PT</span></span>
+      </div>
+      <div class="b-frame"><div class="b-screen">
+        <div class="side">
+          <div class="s-logo"><span class="ministripe" style="display:flex;width:22px;height:11px;transform:skewX(-24deg);border-radius:1px;overflow:hidden"><i style="flex:1;background:var(--red)"></i><i style="flex:1;background:var(--magenta)"></i><i style="flex:1;background:var(--blue)"></i></span><b>PANAM SQUASH</b></div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 8.5 L9 3.5 L14.5 8.5"/><path d="M5.5 8 V14 H12.5 V8"/></svg>HOME</div>
+          <div class="s-item on"><svg width="14" height="14" viewBox="0 0 18 18"><circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/></svg>PLAYERS</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/></svg>TORNEOS</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/></svg>LIVE</div>
+          <div class="s-foot">FEDERACIÓN<br>PANAMERICANA<br>DE SQUASH<br><br>DATA · PSA / SQUASHINFO</div>
+        </div>
+        <div class="main">
+          <div class="miniled">
+            <div class="t"><span class="dotlive"></span>EN CANCHA AHORA · KARACHI OPEN · R2</div>
+            <div class="ledline">
+              <span class="who">VARGAS · COL</span>
+              <canvas class="led" data-text="2-1" data-scale="3" aria-label="Vargas 2, Anwar 1"></canvas>
+              <span class="who r">ANWAR · PAK</span>
+            </div>
+            <div class="ubar" style="background:linear-gradient(90deg,var(--red),var(--magenta),var(--purple),var(--blue))"></div>
+          </div>
+          <div class="card" style="flex:1;overflow:hidden">
+            <div class="lbl mono">RANKING MUNDIAL — AMÉRICAS · 20.07.2026</div>
+            <div class="row"><span class="rk">#3</span><span class="flag">PER</span><span class="nm">Diego Elías</span><span class="pts">10 250 PTS</span><span class="st up">▲ 1</span></div>
+            <div class="row"><span class="rk">#4</span><span class="flag">USA</span><span class="nm">Olivia Weaver</span><span class="pts">8 940 PTS</span><span class="st up">▲ 2</span></div>
+            <div class="row"><span class="rk">#10</span><span class="flag">USA</span><span class="nm">Amanda Sobhy</span><span class="pts">6 120 PTS</span><span class="st done">—</span></div>
+            <div class="row"><span class="rk">#14</span><span class="flag">MEX</span><span class="nm">Leonel Cárdenas</span><span class="pts">4 890 PTS</span><span class="st done">—</span></div>
+            <div class="row"><span class="rk">#14</span><span class="flag">USA</span><span class="nm">Marina Stefanoni</span><span class="pts">4 730 PTS</span><span class="st up">▲ 3</span></div>
+            <div class="row"><span class="rk">#26</span><span class="flag">COL</span><span class="nm">Miguel Rodríguez</span><span class="pts">3 150 PTS</span><span class="st done">▼ 2</span></div>
+            <div class="row"><span class="rk">#27</span><span class="flag">USA</span><span class="nm">Timothy Brownell</span><span class="pts">3 020 PTS</span><span class="st up">▲ 1</span></div>
+            <div class="row"><span class="rk">#31</span><span class="flag">COL</span><span class="nm">Juan Vargas</span><span class="pts">2 780 PTS</span><span class="st live">EN VIVO</span></div>
+            <div class="row"><span class="rk">#37</span><span class="flag">CAN</span><span class="nm">Hollie Naughton</span><span class="pts">2 310 PTS</span><span class="st done">—</span></div>
+            <div class="row"><span class="rk">#46</span><span class="flag">COL</span><span class="nm">Matías Knudsen</span><span class="pts">1 890 PTS</span><span class="st up">▲ 4</span></div>
+          </div>
+        </div>
+        <div class="rail">
+          <div class="card" style="display:flex;gap:10px;align-items:center">
+            <img class="avatar" style="width:42px;height:42px" src="" data-elias alt="Diego Elías">
+            <div>
+              <div style="font-weight:900;font-size:12px">DIEGO ELÍAS</div>
+              <div class="mono" style="font-size:7px;color:#75715F;margin-top:2px">PER · WORLD #3</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="lbl mono">PRÓXIMO TORNEO FPS</div>
+            <div style="font-weight:800;font-size:11.5px">Panam. por Equipos</div>
+            <div class="mono" style="font-size:7.5px;color:#75715F;margin-top:2px">GUAYAQUIL · 12–18 OCT</div>
+          </div>
+          <div class="miniled">
+            <div class="t"><span class="dotlive"></span>LIVE</div>
+            <div style="font-size:8.5px;color:#D9D7CC;font-family:ui-monospace,monospace;letter-spacing:.06em;line-height:1.8">PANAM JUNIOR<br>SEMIFINALES<br>1.2K VIENDO</div>
+            <div class="ubar" style="background:var(--red)"></div>
+          </div>
+          <div class="btn-dark" style="background:var(--red);font-size:8px">▶ VER EN YOUTUBE</div>
+        </div>
+      </div></div>
+    </div></div>
+  </div>
+
+  <!-- ═══ D.02 TORNEO ═══ -->
+  <div class="pnl module dt-module" style="margin-top:16px">
+    <div class="mod-head"><span class="mod-num mono">D.02</span><span class="mod-feat mono f2">FEATURE&nbsp;2</span></div>
+    <h3 class="mod-title disp">Torneo — Cuadro en vivo</h3>
+    <p class="mod-desc" style="min-height:0">El cuadro de un torneo FPS con resultados en tiempo real vía Club Locker, y el streaming a un click.</p>
+    <div class="browser-wrap"><div class="browser">
+      <div class="b-top">
+        <span class="b-dots"><i></i><i></i><i></i></span>
+        <span class="b-url">panamsquash.app/torneos/panam-junior-2026</span>
+        <span class="b-lang"><span class="on">ES</span><span>EN</span><span>PT</span></span>
+      </div>
+      <div class="b-frame"><div class="b-screen">
+        <div class="side">
+          <div class="s-logo"><span class="ministripe" style="display:flex;width:22px;height:11px;transform:skewX(-24deg);border-radius:1px;overflow:hidden"><i style="flex:1;background:var(--red)"></i><i style="flex:1;background:var(--magenta)"></i><i style="flex:1;background:var(--blue)"></i></span><b>PANAM SQUASH</b></div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 8.5 L9 3.5 L14.5 8.5"/><path d="M5.5 8 V14 H12.5 V8"/></svg>HOME</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/></svg>PLAYERS</div>
+          <div class="s-item on"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/></svg>TORNEOS</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/></svg>LIVE</div>
+          <div class="s-foot">CUADROS Y RESULTADOS<br>VÍA CLUB LOCKER</div>
+        </div>
+        <div class="main">
+          <div class="miniled">
+            <div class="t"><span class="dotlive"></span>PANAMERICANO JUNIOR 2026 · LIMA, PER · DÍA 3 DE 7 · CANCHA CENTRAL</div>
+            <div class="ledline">
+              <span class="who">TORRES · PER</span>
+              <canvas class="led" data-text="2-1" data-scale="3" aria-label="Torres 2, Luna 1"></canvas>
+              <span class="who r">LUNA · MEX</span>
+            </div>
+            <div class="ubar" style="background:var(--red)"></div>
+          </div>
+          <div class="bkt-head"><span>CUARTOS</span><i></i><span>SEMIFINALES</span><i></i><span>FINAL</span></div>
+          <div class="bkt">
+            <div class="rnd">
+              <div class="match"><div class="m-row w"><span class="nm2">TORRES</span> <span class="flag">PER</span><span class="sc">3–0</span></div><div class="m-row"><span class="nm2">DUARTE</span> <span class="flag">BRA</span><span class="sc">0–3</span></div></div>
+              <div class="match"><div class="m-row w"><span class="nm2">LUNA</span> <span class="flag">MEX</span><span class="sc">3–1</span></div><div class="m-row"><span class="nm2">CASTRO</span> <span class="flag">ARG</span><span class="sc">1–3</span></div></div>
+              <div class="match"><div class="m-row w"><span class="nm2">SILVA</span> <span class="flag">BRA</span><span class="sc">3–2</span></div><div class="m-row"><span class="nm2">PEREZ</span> <span class="flag">ECU</span><span class="sc">2–3</span></div></div>
+              <div class="match"><div class="m-row w"><span class="nm2">MORALES</span> <span class="flag">GUA</span><span class="sc">3–1</span></div><div class="m-row"><span class="nm2">RIOS</span> <span class="flag">CHI</span><span class="sc">1–3</span></div></div>
+            </div>
+            <div class="conn c1"><span class="j"></span><span class="j"></span></div>
+            <div class="rnd">
+              <div class="match"><div class="m-row w"><span class="nm2">TORRES</span> <span class="flag">PER</span><span class="sc">2–1</span></div><div class="m-row"><span class="nm2">LUNA</span> <span class="flag">MEX</span><span class="sc">1–2</span></div><div class="m-live">● EN JUEGO · 3ER GAME 8–6</div></div>
+              <div class="match"><div class="m-row"><span class="nm2">SILVA</span> <span class="flag">BRA</span><span class="sc">HOY</span></div><div class="m-row"><span class="nm2">MORALES</span> <span class="flag">GUA</span><span class="sc">17:00</span></div></div>
+            </div>
+            <div class="conn c2"><span class="j"></span></div>
+            <div class="rnd">
+              <div class="match"><div class="m-row"><span class="nm2">—</span><span class="sc">SÁB</span></div><div class="m-row"><span class="nm2">—</span><span class="sc">15:00</span></div></div>
+            </div>
+          </div>
+          <div class="btn-dark bkt-foot" style="font-size:8px">CUADRO COMPLETO · CLUB LOCKER →</div>
+        </div>
+      </div></div>
+    </div></div>
+  </div>
+
+  <div class="pnl footstrip mono" style="margin-top:16px">
+    <div>PANAM SQUASH × JH</div>
+    <div>PROPUESTA DE DISEÑO</div>
+    <div>PSQ—01 · REV B · 20.07.2026</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  /* ── 5×7 dot-matrix renderer ── */
+  var GLYPHS = {
+    "0":["01110","10001","10011","10101","11001","10001","01110"],
+    "1":["00100","01100","00100","00100","00100","00100","01110"],
+    "2":["01110","10001","00001","00010","00100","01000","11111"],
+    "3":["11111","00010","00100","00010","00001","10001","01110"],
+    "4":["00010","00110","01010","10010","11111","00010","00010"],
+    "5":["11111","10000","11110","00001","00001","10001","01110"],
+    "6":["00110","01000","10000","11110","10001","10001","01110"],
+    "7":["11111","00001","00010","00100","01000","01000","01000"],
+    "8":["01110","10001","10001","01110","10001","10001","01110"],
+    "9":["01110","10001","10001","01111","00001","00010","01100"],
+    "-":["00000","00000","00000","01110","00000","00000","00000"],
+    "V":["10001","10001","10001","10001","10001","01010","00100"],
+    "S":["01111","10000","10000","01110","00001","00001","11110"],
+    " ":["00000","00000","00000","00000","00000","00000","00000"]
+  };
+  var dpr = window.devicePixelRatio || 1;
+  document.querySelectorAll("canvas.led").forEach(function(cv){
+    var text = cv.dataset.text || "0";
+    var s = parseFloat(cv.dataset.scale || "3");   /* dot pitch in css px */
+    var dot = s * 0.72, gapCh = s;                  /* dot radius factor  */
+    var wCss = text.length * 5 * s + (text.length - 1) * gapCh;
+    var hCss = 7 * s;
+    cv.width = Math.round(wCss * dpr); cv.height = Math.round(hCss * dpr);
+    cv.style.width = wCss + "px"; cv.style.height = hCss + "px";
+    var ctx = cv.getContext("2d"); ctx.scale(dpr, dpr);
+    var x0 = 0;
+    for (var c = 0; c < text.length; c++){
+      var g = GLYPHS[text[c]] || GLYPHS[" "];
+      for (var r = 0; r < 7; r++){
+        for (var k = 0; k < 5; k++){
+          ctx.beginPath();
+          ctx.arc(x0 + k*s + s/2, r*s + s/2, dot/2, 0, 6.2832);
+          ctx.fillStyle = g[r][k] === "1" ? "#EDECE4" : "#242422";
+          ctx.fill();
+        }
+      }
+      x0 += 5*s + gapCh;
+    }
+  });
+
+  /* ── LED rank chart (oscilloscope style) ── */
+  (function(){
+    var cv = document.getElementById("rankchart");
+    if (!cv) return;
+    var pitch = 3.5, H = 84;
+    var W = Math.max(140, (cv.parentElement.clientWidth || 244) - 24);
+    var cols = Math.floor(W / pitch), rows = Math.floor(H / pitch);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    cv.style.width = W + "px"; cv.style.height = H + "px";
+    var ctx = cv.getContext("2d"); ctx.scale(dpr, dpr);
+    /* rank by year: 2019..2026 (jul) — rank 1 = top row */
+    var ranks = [8, 7, 5, 4, 3, 2, 1, 3];
+    function rowFor(rank){ return 1 + (rank - 1) / 7 * (rows - 3); }
+    /* dim grid */
+    for (var c = 0; c < cols; c++)
+      for (var r = 0; r < rows; r++){
+        ctx.beginPath();
+        ctx.arc(c*pitch + pitch/2, r*pitch + pitch/2, 0.8, 0, 6.2832);
+        ctx.fillStyle = "#242422"; ctx.fill();
+      }
+    /* lit trajectory — interpolate ranks across columns */
+    var lit = [];
+    for (var c2 = 0; c2 < cols; c2++){
+      var t = c2 / (cols - 1) * (ranks.length - 1);
+      var i = Math.min(Math.floor(t), ranks.length - 2);
+      var rank = ranks[i] + (ranks[i+1] - ranks[i]) * (t - i);
+      lit.push(Math.round(rowFor(rank)));
+    }
+    for (var c3 = 0; c3 < cols; c3++){
+      var r0 = lit[c3], r1 = c3 < cols-1 ? lit[c3+1] : lit[c3];
+      var lo = Math.min(r0, r1), hi = Math.max(r0, r1);
+      for (var rr = lo; rr <= hi; rr++){
+        ctx.beginPath();
+        ctx.arc(c3*pitch + pitch/2, rr*pitch + pitch/2, 1.15, 0, 6.2832);
+        ctx.fillStyle = "#EDECE4"; ctx.fill();
+      }
+    }
+    /* peak #1 and current endpoint in yellow */
+    var peakC = Math.round((6 / (ranks.length - 1)) * (cols - 1));
+    [[peakC, lit[peakC]], [cols-1, lit[cols-1]]].forEach(function(p){
+      ctx.beginPath();
+      ctx.arc(p[0]*pitch + pitch/2, p[1]*pitch + pitch/2, 1.9, 0, 6.2832);
+      ctx.fillStyle = "#E8D44D"; ctx.fill();
+    });
+  })();
+
+  /* ── reuse embedded headshot in desktop rail ── */
+  var srcImg = document.querySelector('img.avatar[src^="data:"]');
+  if (srcImg) document.querySelectorAll("[data-elias]").forEach(function(el){ el.src = srcImg.src; });
+
+  /* ── nav key buttons ── */
+  var ICONS = {
+    "HOME":    '<path d="M3.5 8.5 L9 3.5 L14.5 8.5"/><path d="M5.5 8 V14 H12.5 V8"/>',
+    "PLAYERS": '<circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/>',
+    "TORNEOS": '<path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/>',
+    "LIVE":    '<path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/>'
+  };
+  document.querySelectorAll(".nav").forEach(function(el){
+    var label = el.textContent.trim().toUpperCase();
+    var ic = ICONS[label] || "";
+    el.setAttribute("aria-label", label);
+    el.innerHTML = '<span class="navbtn"><svg width="17" height="17" viewBox="0 0 18 18" aria-hidden="true">'
+      + ic + '</svg></span>';
+  });
+
+  /* ── knob renderer ── */
+  document.querySelectorAll(".knob").forEach(function(el){
+    var size = parseFloat(el.dataset.size || "60");
+    var ring = el.dataset.ring || null;
+    var ticks = el.dataset.ticks === "1";
+    var S = size + 26, c = S/2, rK = size/2;
+    var svg = '<svg width="'+S+'" height="'+S+'" viewBox="0 0 '+S+' '+S+'" aria-hidden="true">';
+    if (ticks){
+      for (var i = 0; i < 11; i++){
+        var a = (-225 + i*27) * Math.PI/180;
+        var tx = c + Math.cos(a)*(rK+9), ty = c + Math.sin(a)*(rK+9);
+        svg += '<circle cx="'+tx+'" cy="'+ty+'" r="1.4" fill="#55524A"/>';
+      }
+      svg += '<text x="'+(c-rK-9)+'" y="'+(c+rK+9)+'" font-size="9" fill="#55524A" font-family="ui-monospace,monospace">−</text>';
+      svg += '<text x="'+(c+rK+3)+'" y="'+(c+rK+9)+'" font-size="9" fill="#55524A" font-family="ui-monospace,monospace">+</text>';
+    }
+    if (ring){
+      svg += '<circle cx="'+c+'" cy="'+(c+1.5)+'" r="'+(rK+3)+'" fill="'+ring+'" opacity=".92"/>';
+      svg += '<circle cx="'+c+'" cy="'+(c+3)+'" r="'+(rK+3)+'" fill="rgba(0,0,0,.25)"/>';
+      svg += '<circle cx="'+c+'" cy="'+(c+1)+'" r="'+(rK+3)+'" fill="'+ring+'"/>';
+    }
+    var gid = "kg" + Math.round(c*rK) + (ring ? ring.slice(1) : "n");
+    svg += '<defs><radialGradient id="'+gid+'" cx="38%" cy="30%" r="80%">'
+        +  '<stop offset="0%" stop-color="#FCFBF7"/><stop offset="70%" stop-color="#E4E1D6"/>'
+        +  '<stop offset="100%" stop-color="#C6C2B4"/></radialGradient></defs>';
+    svg += '<circle cx="'+c+'" cy="'+c+'" r="'+rK+'" fill="url(#'+gid+')" stroke="#B3AFA1" stroke-width="1"/>';
+    svg += '<line x1="'+c+'" y1="'+(c-rK+5)+'" x2="'+c+'" y2="'+(c-rK*0.35)+'" stroke="#181713" stroke-width="2.2" stroke-linecap="round"/>';
+    svg += '</svg>';
+    el.innerHTML = svg;
+    el.style.display = "inline-block";
+  });
+})();
+</script>
