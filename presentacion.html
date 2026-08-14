@@ -110,9 +110,16 @@
   .strike::after{content:""; position:absolute; left:-4%; right:-4%; top:52%; height:3px; background:var(--red); transform:rotate(-6deg); border-radius:2px; transform-origin:left center; transition:transform .5s ease .6s}
   .slide.in .strike::after{transform:rotate(-6deg) scaleX(1)}
   .strike::after{transform:rotate(-6deg) scaleX(0)}
-  .lovenote{margin-top:20px; padding:17px 21px; border-left:4px solid var(--yellow); border-radius:0 12px 12px 0;
-    background:var(--panel); font-size:14px; line-height:1.6; max-width:62ch;
-    box-shadow:0 1px 2px rgba(40,36,25,.07), 0 10px 26px rgba(40,36,25,.10)}
+  .love{display:flex; gap:26px; align-items:center; margin-top:24px; padding:24px 28px;
+    background:var(--panel); border-radius:18px; border-left:6px solid var(--yellow);
+    box-shadow:0 1px 2px rgba(40,36,25,.07), 0 14px 34px rgba(40,36,25,.13)}
+  .love .heart{flex-shrink:0; transform-origin:center}
+  .love-t{font-size:clamp(20px,2.2vw,27px); margin-bottom:9px; line-height:1}
+  .love p{margin:0; font-size:15px; line-height:1.62; max-width:78ch; color:var(--ink-2)}
+  .love p b{color:var(--ink); font-weight:700}
+  @keyframes beat{0%,100%{transform:scale(1)} 12%{transform:scale(1.13)} 26%{transform:scale(1)} 38%{transform:scale(1.07)} 52%{transform:scale(1)}}
+  .slide.in .love .heart{animation:beat 2s ease-in-out .8s infinite}
+  @media (max-width:720px){ .love{flex-direction:column; text-align:center; gap:16px} }
 
   .exgrid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:28px}
   .ex{padding:23px}
@@ -121,6 +128,20 @@
   .ex ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px; font-size:12.5px; line-height:1.5; color:var(--ink-2)}
   .ex ul b{color:var(--ink)}
   .footline{margin-top:26px; font-size:11px; color:var(--ink-2); line-height:1.75}
+
+  /* sponsor slots inside the live mockup */
+  .mk .spon{border:1px dashed #C1BCAC; border-radius:7px; padding:13px 10px; text-align:center;
+    font-family:ui-monospace,monospace; font-size:7.5px; letter-spacing:.12em; color:#A29D8C; background:#F3F1E9}
+  .mk .spon b{display:block; font-size:9px; letter-spacing:.06em; color:#4A473D; margin-bottom:3px; font-family:inherit}
+
+  /* commercial terms */
+  .terms{display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:28px}
+  @media (max-width:800px){ .terms{grid-template-columns:1fr} }
+  .term{padding:21px 20px}
+  .term .k{font-size:9.5px; color:var(--ink-2); margin-bottom:9px}
+  .term p{margin:0; font-size:13.5px; line-height:1.55}
+  .term p b{font-weight:700}
+  .term .hi{color:var(--blue)}
 
   /* in-screen animations for the live mockups */
   @keyframes popin{from{opacity:0; transform:translateY(11px)} to{opacity:1; transform:none}}
@@ -501,7 +522,7 @@
 <body>
 
 <div class="progress" id="prog"></div>
-<div class="counter mono" id="ctr">01 / 18</div>
+<div class="counter mono" id="ctr">01 / 20</div>
 <div class="hint mono">↓ · → · ESPACIO PARA AVANZAR</div>
 
 <div class="deck" id="deck">
@@ -1284,12 +1305,67 @@
         <div class="pnl prob rise" style="--d:.34s"><div class="k mono">YOUTUBE FPS</div><p>El canal oficial como única casa del streaming panamericano.</p></div>
         <div class="pnl prob rise" style="--d:.42s"><div class="k mono">RECOPILACIÓN LEGAL</div><p>Data pública recolectada de forma automatizada, cumpliendo los términos de uso de cada sitio.</p></div>
       </div>
-      <p class="footline rise" style="--d:.5s">El alcance de la data queda sujeto al acceso a información que se obtenga a través de la federación y sus
-      alianzas (Squash Library, SquashInfo, Club Locker). Cada acuerdo que la FPS gestione amplía lo que la app puede mostrar.</p>
+      <p class="footline rise" style="--d:.5s"><b>La carga de información es automatizada al máximo posible</b> — vía las alianzas de la federación y
+      recopilación legal de fuentes públicas — para que nadie tenga que llenar datos a mano. El alcance de la data queda sujeto al acceso que
+      se obtenga a través de la federación y sus alianzas (Squash Library, SquashInfo, Club Locker): cada acuerdo que la FPS gestione amplía lo que la app puede mostrar.</p>
     </div>
   </section>
 
-  <!-- 15 · ROADMAP -->
+  <!-- 15 · PATROCINADORES -->
+  <section class="slide">
+    <div class="wrap split rev">
+      <div class="fit rise" style="--d:.2s" data-h=".8"><div class="fitin"><div class="mk">
+        <div><div class="device">
+          <div class="scr-frame"><div class="screen">
+            <div class="appbar"><img class="logo-mark" src="data:image/png;base64,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" alt=""><b>EN VIVO</b><span class="scr mono">PANAM JUNIOR</span></div>
+            <div class="body">
+              <div class="miniled" style="height:126px;display:flex;flex-direction:column">
+                <div class="t"><span class="dotlive"></span>PANAM SQUASH TV · 1.2K VIENDO</div>
+                <div style="flex:1;display:flex;align-items:center;justify-content:center">
+                  <div style="width:44px;height:32px;background:var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center">
+                    <span style="border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent"></span>
+                  </div>
+                </div>
+                <div style="font-size:7.5px;color:var(--yellow);font-family:ui-monospace,monospace;letter-spacing:.1em">PRESENTADO POR · TU MARCA</div>
+                <div class="ubar" style="background:var(--yellow)"></div>
+              </div>
+              <div class="card">
+                <div class="lbl mono">PATROCINADOR DEL TORNEO</div>
+                <div class="spon"><b>TU MARCA AQUÍ</b>ESPACIO PRINCIPAL · TODO EL TORNEO</div>
+              </div>
+              <div class="card">
+                <div class="lbl mono">ALCANCE DEL MES</div>
+                <div class="row"><span class="nm">Usuarios únicos</span><span class="st done">12 400</span></div>
+                <div class="row"><span class="nm">Vistas de pantalla</span><span class="st done">48 900</span></div>
+                <div class="row"><span class="nm">Países</span><span class="st done">27</span></div>
+              </div>
+              <div class="card">
+                <div class="lbl mono">MARCAS OFICIALES FPS</div>
+                <div class="spon" style="padding:9px">MARCA 1 · MARCA 2 · MARCA 3</div>
+              </div>
+            </div>
+            <div class="navbar">
+              <div class="nav">HOME</div><div class="nav">PLAYERS</div>
+              <div class="nav">TORNEOS</div><div class="nav on">LIVE</div><div class="nav">AI</div>
+            </div>
+          </div></div>
+          <div class="dev-foot mono"><span>PSQ—12</span><span class="dot" style="background:var(--yellow)"></span></div>
+        </div><div class="cap mono">PATROCINIO</div></div>
+      </div></div></div>
+      <div>
+        <span class="featchip mono rise" style="color:#A08C1B">MONETIZACIÓN</span>
+        <h2 class="disp rise" style="--d:.06s">La app se puede<br>pagar sola</h2>
+        <ul class="bullets">
+          <li class="rise" style="--d:.14s"><span class="tick"><i style="background:var(--yellow)"></i></span><span><b>Inventario definido</b> — transmisión "presentado por", patrocinador del torneo, marcas oficiales y espacios en el home.</span></li>
+          <li class="rise" style="--d:.22s"><span class="tick"><i style="background:var(--yellow)"></i></span><span><b>Gestionado desde el CMS</b> — la federación sube el logo, define vigencia y activa el espacio, sin depender de nosotros.</span></li>
+          <li class="rise" style="--d:.3s"><span class="tick"><i style="background:var(--yellow)"></i></span><span><b>Reportes de audiencia</b> — usuarios, vistas y países: los números que un patrocinador pide antes de firmar.</span></li>
+          <li class="rise" style="--d:.38s"><span class="tick"><i style="background:var(--yellow)"></i></span><span><b>Un solo patrocinador anual</b> cubre con holgura el costo de operación de la plataforma.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 · ROADMAP -->
   <section class="slide">
     <div class="wrap">
       <div class="eyebrow mono rise">06 · EL CAMINO</div>
@@ -1340,16 +1416,57 @@
           <div class="per">hosting, actualizaciones, operación de data y soporte</div>
         </div>
       </div>
-      <div class="lovenote rise" style="--d:.4s">
-        Una plataforma de este alcance tiene un valor de desarrollo de <b>US$ 5,000</b>.
-        Lo ofrecemos a la federación por <b>US$ 1,000</b> — el resto lo ponemos nosotros,
-        por amor y cariño al squash: somos jugadores de toda la vida, y queremos ver este
-        proyecto en la cancha.
+      <div class="love rise" style="--d:.4s">
+        <svg class="heart" viewBox="0 0 100 92" width="92" height="85" role="img" aria-label="Corazón de Squashy">
+          <path d="M50 88C50 88 6 62 6 33 6 16 18.5 5 32 5c9.5 0 15.5 5 18 11 2.5-6 8.5-11 18-11 13.5 0 26 11 26 28 0 29-44 55-44 55z" fill="#111110"/>
+          <circle cx="36" cy="36" r="6.4" fill="#E8D44D"/>
+          <circle cx="64" cy="36" r="6.4" fill="#E8D44D"/>
+        </svg>
+        <div>
+          <div class="love-t disp">Descuento por amor al squash</div>
+          <p>Una plataforma de este alcance tiene un valor de desarrollo de <b>US$ 5,000</b>.
+          Se la dejamos a la federación en <b>US$ 1,000</b> — la diferencia la ponemos nosotros.
+          Somos jugadores de toda la vida y queremos ver este proyecto en la cancha.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 17 · ALCANCE -->
+  <!-- 18 · CONDICIONES -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="eyebrow mono rise">08 · CONDICIONES</div>
+      <h2 class="disp rise" style="--d:.06s">Cómo lo trabajamos</h2>
+      <div class="terms">
+        <div class="pnl term rise" style="--d:.16s">
+          <div class="k mono">FORMA DE PAGO</div>
+          <p><b class="hi">50% al iniciar</b> y <b class="hi">50% al entregar</b> la web en producción.</p>
+        </div>
+        <div class="pnl term rise" style="--d:.23s">
+          <div class="k mono">PERMANENCIA</div>
+          <p>Mantenimiento con un mínimo de <b class="hi">12 meses</b>; después, renovable mes a mes.</p>
+        </div>
+        <div class="pnl term rise" style="--d:.3s">
+          <div class="k mono">QUÉ CUBRE EL MENSUAL</div>
+          <p>Hosting, base de datos e infraestructura, actualizaciones, soporte y operación continua de la data.</p>
+        </div>
+        <div class="pnl term rise" style="--d:.37s">
+          <div class="k mono">TOKENS DE IA · SQUASHY</div>
+          <p>Se facturan <b>directo a la federación</b>, al costo del proveedor y sin margen nuestro. Escalan con el uso real.</p>
+        </div>
+        <div class="pnl term rise" style="--d:.44s">
+          <div class="k mono">PROPIEDAD</div>
+          <p>La app, su data y su marca son de la <b>FPS</b>: licencia perpetua y <b>entrega del código fuente</b>. La federación nunca queda amarrada a nosotros.</p>
+        </div>
+        <div class="pnl term rise" style="--d:.51s">
+          <div class="k mono">NUESTRO FRAMEWORK</div>
+          <p>Conservamos la propiedad del motor base reutilizable que traemos de otros proyectos — es lo que permite este precio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 · ALCANCE -->
   <section class="slide">
     <div class="wrap">
       <div class="eyebrow mono rise">08 · ALCANCE</div>
@@ -1368,6 +1485,7 @@
         <div class="pnl ex rise" style="--d:.28s">
           <h3><span class="dotc" style="background:var(--red)"></span>A CARGO DE LA FEDERACIÓN</h3>
           <ul>
+            <li><b>Tokens de IA de Squashy</b> — facturados directo al proveedor, al costo</li>
             <li><b>Apple Developer Program</b> — US$ 99/año (posible exención para organizaciones sin fines de lucro)</li>
             <li><b>Google Play Console</b> — US$ 25, pago único</li>
             <li><b>Trámites de calificación</b> de la FPS ante Apple y Google: número D-U-N-S y verificación de la organización</li>
