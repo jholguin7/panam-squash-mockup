@@ -234,6 +234,65 @@
     font-size:7px; font-family:ui-monospace,monospace; color:#111110; background:#EDECE4}
   .form-strip i.l{background:#3A3936; color:#8B897F}
 
+
+  /* Squashy AI */
+  .f4{color:#A08C1B}
+  .f5{color:#4A473D}
+  .sqv{
+    width:26px; height:26px; border-radius:7px; background:#111110; flex-shrink:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    box-shadow:inset 0 1px 4px rgba(0,0,0,.8);
+  }
+  .sqv.big{width:44px;height:44px;border-radius:11px;gap:5px}
+  .sqv .eyes{display:flex; gap:5px}
+  .sqv.big .eyes{gap:8px}
+  .sqv .eyes i{width:3.5px; height:3.5px; border-radius:50%; background:var(--yellow); box-shadow:0 0 3px var(--yellow)}
+  .sqv.big .eyes i{width:5px;height:5px}
+  .sqv .mouth{width:9px; height:2px; border-radius:1px; background:#EDECE4}
+  .sqv.big .mouth{width:14px}
+  .chat{display:flex; flex-direction:column; gap:8px; flex:1; min-height:0}
+  .msg{max-width:86%; font-size:10px; line-height:1.55; padding:9px 11px; border-radius:11px}
+  .msg.user{align-self:flex-end; background:#FBF9F3; border-bottom-right-radius:3px;
+    box-shadow:0 1px 2px rgba(40,36,25,.10), 0 4px 10px rgba(40,36,25,.12)}
+  .msg.ai{align-self:flex-start; background:#1B1A16; color:#EDEBE2; border-bottom-left-radius:3px;
+    box-shadow:0 5px 12px rgba(0,0,0,.22)}
+  .msg.ai b{color:var(--yellow); font-weight:700}
+  .cite{display:inline-block; margin-top:6px; font-size:6.5px; font-family:ui-monospace,monospace;
+    letter-spacing:.08em; color:var(--yellow); border:1px solid rgba(232,212,77,.35);
+    padding:2px 6px; border-radius:3px; margin-right:4px}
+  .sugg{display:flex; flex-wrap:wrap; gap:5px}
+  .sugg span{font-size:7.5px; font-family:ui-monospace,monospace; letter-spacing:.05em;
+    padding:5px 9px; border-radius:12px; background:#FBF9F3; color:#4A473D;
+    box-shadow:0 1px 2px rgba(40,36,25,.10), 0 3px 8px rgba(40,36,25,.10)}
+  .inputbar{display:flex; align-items:center; gap:8px; background:#FBF9F3; border-radius:14px;
+    padding:8px 8px 8px 13px; box-shadow:0 1px 2px rgba(40,36,25,.10), 0 5px 14px rgba(40,36,25,.13)}
+  .inputbar .ph{flex:1; font-size:9px; font-family:ui-monospace,monospace; letter-spacing:.05em; color:#A8A494}
+  .sendkey{width:28px; height:28px; border-radius:50%; background:#1B1A16; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 3px 7px rgba(0,0,0,.3)}
+  .sendkey::after{content:""; border-left:8px solid var(--yellow); border-top:5px solid transparent; border-bottom:5px solid transparent; margin-left:2px}
+  .week{display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px dashed #D8D4C6; font-size:9.5px}
+  .week:last-child{border-bottom:0}
+  .week .wk{font-family:ui-monospace,monospace; font-size:8px; color:#75715F; width:34px; flex-shrink:0}
+  .week .focus{flex:1; font-weight:600; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .week .n{font-family:ui-monospace,monospace; font-size:8px; color:#75715F; flex-shrink:0}
+
+  /* CMS admin */
+  .adminbar{display:flex; align-items:center; gap:8px; background:#FBF9F3; border-radius:9px; padding:8px 11px;
+    box-shadow:0 1px 2px rgba(40,36,25,.10), 0 4px 10px rgba(40,36,25,.11); font-size:9.5px; font-weight:700}
+  .adminbar .role{margin-left:auto; font-size:6.5px; font-family:ui-monospace,monospace; letter-spacing:.08em;
+    background:#1B1A16; color:var(--yellow); padding:3px 7px; border-radius:3px; font-weight:400}
+  .field{margin-bottom:8px}
+  .field label{display:block; font-size:7px; font-family:ui-monospace,monospace; letter-spacing:.08em;
+    color:#75715F; margin-bottom:4px; text-transform:uppercase}
+  .field .fv{background:#F3F1E9; border-radius:7px; padding:8px 10px; font-size:9.5px;
+    box-shadow:inset 0 1.5px 3px rgba(40,36,25,.12)}
+  .field .fv.mono2{font-family:ui-monospace,monospace; font-size:7.5px; color:#4A473D; letter-spacing:.03em}
+  .statuschip{font-size:6.5px; font-family:ui-monospace,monospace; letter-spacing:.06em; padding:3px 7px; border-radius:3px; flex-shrink:0}
+  .statuschip.pub{background:rgba(61,76,158,.12); color:var(--blue)}
+  .statuschip.live2{background:rgba(216,67,63,.12); color:var(--red)}
+  .statuschip.draft{background:#EBE8DD; color:#75715F}
+  .editlink{font-size:7px; font-family:ui-monospace,monospace; color:#75715F; letter-spacing:.05em; flex-shrink:0}
+
   /* ═══ desktop browser mockups ═══ */
   .dt-module{padding:26px 26px 30px}
   .browser-wrap{overflow-x:auto; border-radius:20px}
@@ -383,6 +442,7 @@
             <div class="nav"><span class="pip"></span>PLAYERS</div>
             <div class="nav"><span class="pip"></span>TORNEOS</div>
             <div class="nav"><span class="pip"></span>LIVE</div>
+            <div class="nav">AI</div>
           </div>
         </div></div>
         <div class="dev-foot mono"><span>PSQ—02</span><span class="dot" style="background:var(--red)"></span></div>
@@ -422,6 +482,7 @@
             <div class="nav on"><span class="pip"></span>PLAYERS</div>
             <div class="nav"><span class="pip"></span>TORNEOS</div>
             <div class="nav"><span class="pip"></span>LIVE</div>
+            <div class="nav">AI</div>
           </div>
         </div></div>
         <div class="dev-foot mono"><span>PSQ—03</span><span class="dot" style="background:var(--magenta)"></span></div>
@@ -477,6 +538,7 @@
             <div class="nav on"><span class="pip"></span>PLAYERS</div>
             <div class="nav"><span class="pip"></span>TORNEOS</div>
             <div class="nav"><span class="pip"></span>LIVE</div>
+            <div class="nav">AI</div>
           </div>
         </div></div>
         <div class="dev-foot mono"><span>PSQ—04</span><span class="dot" style="background:var(--purple)"></span></div>
@@ -521,6 +583,7 @@
             <div class="nav"><span class="pip"></span>PLAYERS</div>
             <div class="nav on"><span class="pip"></span>TORNEOS</div>
             <div class="nav"><span class="pip"></span>LIVE</div>
+            <div class="nav">AI</div>
           </div>
         </div></div>
         <div class="dev-foot mono"><span>PSQ—05</span><span class="dot" style="background:var(--blue)"></span></div>
@@ -566,6 +629,7 @@
             <div class="nav"><span class="pip"></span>PLAYERS</div>
             <div class="nav"><span class="pip"></span>TORNEOS</div>
             <div class="nav on"><span class="pip"></span>LIVE</div>
+            <div class="nav">AI</div>
           </div>
         </div></div>
         <div class="dev-foot mono"><span>PSQ—06</span><span class="dot" style="background:var(--yellow)"></span></div>
@@ -620,6 +684,7 @@
             <div class="nav on">PLAYERS</div>
             <div class="nav">TORNEOS</div>
             <div class="nav">LIVE</div>
+            <div class="nav">AI</div>
           </div>
         </div></div>
         <div class="dev-foot mono"><span>PSQ—07</span><span class="dot" style="background:var(--magenta)"></span></div>
@@ -669,15 +734,130 @@
             <div class="nav">PLAYERS</div>
             <div class="nav on">TORNEOS</div>
             <div class="nav">LIVE</div>
+            <div class="nav">AI</div>
           </div>
         </div></div>
         <div class="dev-foot mono"><span>PSQ—08</span><span class="dot" style="background:var(--purple)"></span></div>
       </div>
     </div>
 
-    <!-- ═══ S.08 NOTES ═══ -->
+    <!-- ═══ S.08 SQUASHY CHAT ═══ -->
     <div class="pnl module">
-      <div class="mod-head"><span class="mod-num mono">S.08</span><span class="mod-feat mono f0">SPEC</span></div>
+      <div class="mod-head"><span class="mod-num mono">S.08</span><span class="mod-feat mono f4">SQUASHY&nbsp;AI</span></div>
+      <h3 class="mod-title disp">Squashy AI</h3>
+      <p class="mod-desc">El asistente de la app: reglamento oficial con citas, torneos, jugadores y todo el conocimiento del squash.</p>
+      <div class="device">
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="sqv"><span class="eyes"><i></i><i></i></span><span class="mouth"></span></span><b>SQUASHY AI</b><span class="scr mono">REGLAS</span></div>
+          <div class="body">
+            <div class="tabs"><span class="tab on">REGLAS</span><span class="tab">COACH</span><span class="tab">DATA</span><span class="tab">SCOUT</span></div>
+            <div class="chat">
+              <div class="msg ai">Hola! Soy <b>Squashy</b>. Pregúntame lo que quieras: reglas, entrenamientos, torneos o jugadores.</div>
+              <div class="msg user">Mi rival me bloqueó el paso a la bola. ¿Es let o stroke?</div>
+              <div class="msg ai">Si el bloqueo te impidió llegar a una bola que <b>podías devolver</b>, es <b>let</b> (se repite el punto). Es <b>stroke</b> a tu favor si estabas en posición de ganar el punto.<br><span class="cite">WSF RULEBOOK · REGLA 8</span><span class="cite">INTERFERENCIA</span></div>
+            </div>
+            <div class="sugg"><span>¿CUÁNDO ES NO LET?</span><span>REGLA DEL SAQUE</span><span>PUNTUACIÓN PAR-11</span></div>
+            <div class="inputbar"><span class="ph">PREGÚNTALE A SQUASHY…</span><span class="sendkey"></span></div>
+          </div>
+          <div class="navbar">
+            <div class="nav">HOME</div>
+            <div class="nav">PLAYERS</div>
+            <div class="nav">TORNEOS</div>
+            <div class="nav">LIVE</div>
+            <div class="nav on">AI</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—09</span><span class="dot" style="background:var(--yellow)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.09 SQUASHY COACH ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.09</span><span class="mod-feat mono f4">SQUASHY&nbsp;AI</span></div>
+      <h3 class="mod-title disp">Squashy — Coach</h3>
+      <p class="mod-desc">Entrenamientos personalizados: Squashy arma planes según tu nivel y lo que quieras mejorar.</p>
+      <div class="device">
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><span class="sqv"><span class="eyes"><i></i><i></i></span><span class="mouth"></span></span><b>SQUASHY AI</b><span class="scr mono">COACH</span></div>
+          <div class="body">
+            <div class="tabs"><span class="tab">REGLAS</span><span class="tab on">COACH</span><span class="tab">DATA</span><span class="tab">SCOUT</span></div>
+            <div class="chat" style="flex:0 0 auto">
+              <div class="msg user">Arma un plan de 4 semanas para mejorar mi drive profundo.</div>
+              <div class="msg ai">Listo. Basado en tu nivel — <b>3 sesiones por semana</b>, 40 min cada una:</div>
+            </div>
+            <div class="card">
+              <div class="lbl mono">PLAN · DRIVE PROFUNDO · 4 SEMANAS</div>
+              <div class="week"><span class="wk">SEM 1</span><span class="focus">Largo y pegado a la pared</span><span class="n">3 DRILLS</span></div>
+              <div class="week"><span class="wk">SEM 2</span><span class="focus">Profundidad bajo presión</span><span class="n">4 DRILLS</span></div>
+              <div class="week"><span class="wk">SEM 3</span><span class="focus">Drive + volea de contención</span><span class="n">4 DRILLS</span></div>
+              <div class="week"><span class="wk">SEM 4</span><span class="focus">Condición de partido</span><span class="n">2 SETS</span></div>
+            </div>
+            <div class="miniled">
+              <div class="t">NIVEL ESTIMADO · AUTOEVALUACIÓN</div>
+              <div class="vu-row"><span class="vu-lbl">NIVEL</span><span class="vu"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="hot"></i><i></i><i></i><i></i></span><span class="vu-val">3.5</span></div>
+              <div class="ubar" style="background:var(--yellow)"></div>
+            </div>
+            <div class="inputbar"><span class="ph">AJUSTAR PLAN…</span><span class="sendkey"></span></div>
+          </div>
+          <div class="navbar">
+            <div class="nav">HOME</div>
+            <div class="nav">PLAYERS</div>
+            <div class="nav">TORNEOS</div>
+            <div class="nav">LIVE</div>
+            <div class="nav on">AI</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—10</span><span class="dot" style="background:var(--yellow)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.10 ADMIN ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.10</span><span class="mod-feat mono f5">ADMIN</span></div>
+      <h3 class="mod-title disp">Admin — móvil</h3>
+      <p class="mod-desc">Lo urgente desde el celular: publicar el link del streaming y verificar resultados, en dos taps.</p>
+      <div class="device">
+        <div class="scr-frame"><div class="screen">
+          <div class="appbar"><img class="logo-mark" src="data:image/png;base64,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" alt=""><b>ADMIN</b><span class="scr mono">FPS</span></div>
+          <div class="body">
+            <div class="adminbar">SB · Sergio Becerra<span class="role">ADMIN</span></div>
+            <div class="card">
+              <div class="lbl mono">PUBLICAR STREAMING</div>
+              <div class="field"><label>Link YouTube</label><div class="fv mono2">youtube.com/live/panamjunior-sf1</div></div>
+              <div class="btn-dark" style="background:var(--red)">● PUBLICAR EN LA APP</div>
+            </div>
+            <div class="miniled">
+              <div class="t"><span class="dotlive"></span>RESULTADO EN VIVO · SINCRONIZADO</div>
+              <div class="ledline">
+                <span class="who">TORRES</span>
+                <canvas class="led" data-text="2-1" data-scale="3" aria-label="Torres 2, Luna 1"></canvas>
+                <span class="who r">LUNA</span>
+              </div>
+              <div class="ledline" style="margin-top:7px;justify-content:center"><span style="font-size:7px;color:#8B897F;font-family:ui-monospace,monospace;letter-spacing:.08em">AUTO · CLUB LOCKER · CADA 30S</span></div>
+              <div class="ubar" style="background:var(--blue)"></div>
+            </div>
+            <div class="card">
+              <div class="lbl mono">TORNEOS 2026</div>
+              <div class="row"><span class="nm">Panam. Junior · Lima</span><span class="statuschip live2">EN VIVO</span><span class="editlink">EDITAR</span></div>
+              <div class="row"><span class="nm">Panam. Equipos · Guayaquil</span><span class="statuschip pub">PUBLICADO</span><span class="editlink">EDITAR</span></div>
+              <div class="row"><span class="nm">Panam. Adulto · Bogotá</span><span class="statuschip draft">BORRADOR</span><span class="editlink">EDITAR</span></div>
+            </div>
+          </div>
+          <div class="navbar">
+            <div class="nav">HOME</div>
+            <div class="nav">PLAYERS</div>
+            <div class="nav">TORNEOS</div>
+            <div class="nav">LIVE</div>
+            <div class="nav">AI</div>
+          </div>
+        </div></div>
+        <div class="dev-foot mono"><span>PSQ—11</span><span class="dot" style="background:var(--red)"></span></div>
+      </div>
+    </div>
+
+    <!-- ═══ S.11 NOTES ═══ -->
+    <div class="pnl module">
+      <div class="mod-head"><span class="mod-num mono">S.11</span><span class="mod-feat mono f0">SPEC</span></div>
       <h3 class="mod-title disp">Notas de diseño</h3>
       <p class="mod-desc">Decisiones que definen el producto, acordadas en la conversación con la federación.</p>
       <div class="caption">
@@ -687,7 +867,7 @@
         <b>DATA —</b> Rankings y jugadores desde fuentes PSA/SquashInfo con crédito
         y atribución; torneos FPS vía Club Locker; streaming vía el canal oficial
         de YouTube de Panam Squash.<br><br>
-        <b>PLATAFORMA —</b> Una sola base de código para iOS, Android y web. La app
+        <b>SQUASHY AI —</b> Asistente con IA integrado: reglamento oficial con citas, planes de entrenamiento personalizados y análisis de jugadores y torneos usando la data de la app.<br><br><b>ADMIN / CMS —</b> Panel de gestión para la federación: torneos, resultados, streaming y noticias. Acceso solo con login de admin.<br><br><b>PLATAFORMA —</b> Una sola base de código para iOS, Android y web. La app
         coexiste con la página web actual de la federación.<br><br>
         <b>ESTA MAQUETA —</b> Rankings reales al 20.07.2026 (fuente: SquashInfo).
         Partidos, torneos FPS y cifras de perfil son ilustrativos.
@@ -716,6 +896,7 @@
           <div class="s-item on"><svg width="14" height="14" viewBox="0 0 18 18"><circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/></svg>PLAYERS</div>
           <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/></svg>TORNEOS</div>
           <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/></svg>LIVE</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M9 2.5 v4 M9 11.5 v4 M2.5 9 h4 M11.5 9 h4 M5 5 l2.2 2.2 M10.8 10.8 l2.2 2.2 M13 5 l-2.2 2.2 M7.2 10.8 l-2.2 2.2"/></svg>SQUASHY</div>
           <div class="s-foot">FEDERACIÓN<br>PANAMERICANA<br>DE SQUASH<br><br>DATA · PSA / SQUASHINFO</div>
         </div>
         <div class="main">
@@ -784,6 +965,7 @@
           <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/></svg>PLAYERS</div>
           <div class="s-item on"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/></svg>TORNEOS</div>
           <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/></svg>LIVE</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M9 2.5 v4 M9 11.5 v4 M2.5 9 h4 M11.5 9 h4 M5 5 l2.2 2.2 M10.8 10.8 l2.2 2.2 M13 5 l-2.2 2.2 M7.2 10.8 l-2.2 2.2"/></svg>SQUASHY</div>
           <div class="s-foot">CUADROS Y RESULTADOS<br>VÍA CLUB LOCKER</div>
         </div>
         <div class="main">
@@ -815,6 +997,112 @@
             </div>
           </div>
           <div class="btn-dark bkt-foot" style="font-size:8px">CUADRO COMPLETO · CLUB LOCKER →</div>
+        </div>
+      </div></div>
+    </div></div>
+  </div>
+
+
+  <!-- ═══ D.03 SQUASHY DESKTOP ═══ -->
+  <div class="pnl module dt-module" style="margin-top:16px">
+    <div class="mod-head"><span class="mod-num mono">D.03</span><span class="mod-feat mono f4">SQUASHY&nbsp;AI</span></div>
+    <h3 class="mod-title disp">Squashy — Data &amp; Scout</h3>
+    <p class="mod-desc" style="min-height:0">El asistente en modo análisis: responde con la data real de la app — rankings, head-to-head, forma — y cita sus fuentes.</p>
+    <div class="browser-wrap"><div class="browser">
+      <div class="b-top">
+        <span class="b-dots"><i></i><i></i><i></i></span>
+        <span class="b-url">panamsquash.app/squashy</span>
+        <span class="b-lang"><span class="on">ES</span><span>EN</span><span>PT</span></span>
+      </div>
+      <div class="b-frame"><div class="b-screen">
+        <div class="side">
+          <div class="s-logo"><img class="logo-img sm" src="data:image/png;base64,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" alt="Panam Squash"></div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 8.5 L9 3.5 L14.5 8.5"/><path d="M5.5 8 V14 H12.5 V8"/></svg>HOME</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/></svg>PLAYERS</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/></svg>TORNEOS</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/></svg>LIVE</div>
+          <div class="s-item on"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M9 2.5 v4 M9 11.5 v4 M2.5 9 h4 M11.5 9 h4 M5 5 l2.2 2.2 M10.8 10.8 l2.2 2.2 M13 5 l-2.2 2.2 M7.2 10.8 l-2.2 2.2"/></svg>SQUASHY</div>
+          <div class="s-foot">SQUASHY AI<br>REGLAS · COACH<br>DATA · SCOUT</div>
+        </div>
+        <div class="main">
+          <div class="chat">
+            <div class="msg user">¿Cómo llega Elías al head-to-head con Asal en el Qatar Classic?</div>
+            <div class="msg ai" style="max-width:78%">El historial favorece a <b>Asal 9–4</b>, pero el momento es de Elías: llega con <b>8 victorias en sus últimos 10</b> partidos y un win rate de <b>81%</b> en la temporada. El dato clave: cuando Elías gana el primer game, cierra el partido el <b>89%</b> de las veces — y a Asal le ha ganado el primer game en 3 de sus últimos 4 cruces.<br><span class="cite">DATA · PSA</span><span class="cite">SQUASHINFO</span><span class="cite">H2H 2019–2026</span></div>
+            <div class="msg user">¿Y quién es la promesa panamericana a seguir este año?</div>
+            <div class="msg ai" style="max-width:78%"><b>Matías Knudsen (COL, #46)</b> — subió 21 puestos en 12 meses, el mayor salto del top 50 en la región. Su próximo torneo: Karachi Open, cuartos de final.<br><span class="cite">RANKING · 20.07.2026</span></div>
+          </div>
+          <div class="sugg"><span>COMPARA WEAVER VS SOBHY</span><span>¿QUIÉN SUBE MÁS EN 2026?</span><span>PRONÓSTICO PANAM EQUIPOS</span></div>
+          <div class="inputbar"><span class="ph">PREGÚNTALE A SQUASHY SOBRE CUALQUIER JUGADOR, TORNEO O REGLA…</span><span class="sendkey"></span></div>
+        </div>
+        <div class="rail">
+          <div class="card" style="display:flex;gap:10px;align-items:center">
+            <span class="sqv big"><span class="eyes"><i></i><i></i></span><span class="mouth"></span></span>
+            <div>
+              <div style="font-weight:900;font-size:12px">SQUASHY AI</div>
+              <div class="mono" style="font-size:7px;color:#75715F;margin-top:2px">ES · EN · PT</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="lbl mono">MODOS</div>
+            <div class="row"><span class="nm">Reglas</span><span class="st done">WSF RULEBOOK</span></div>
+            <div class="row"><span class="nm">Coach</span><span class="st done">ENTRENAMIENTOS</span></div>
+            <div class="row"><span class="nm">Data</span><span class="st done">STATS EN VIVO</span></div>
+            <div class="row"><span class="nm">Scout</span><span class="st done">PROMESAS</span></div>
+          </div>
+          <div class="miniled">
+            <div class="t">FUENTES CONECTADAS</div>
+            <div style="font-size:8px;color:#D9D7CC;font-family:ui-monospace,monospace;letter-spacing:.06em;line-height:2">● PSA RANKINGS<br>● SQUASHINFO DB<br>● DATA FPS / CLUB LOCKER<br>● WSF RULEBOOK</div>
+            <div class="ubar" style="background:var(--yellow)"></div>
+          </div>
+        </div>
+      </div></div>
+    </div></div>
+  </div>
+
+  <!-- ═══ D.04 CMS ═══ -->
+  <div class="pnl module dt-module" style="margin-top:16px">
+    <div class="mod-head"><span class="mod-num mono">D.04</span><span class="mod-feat mono f5">ADMIN</span></div>
+    <h3 class="mod-title disp">CMS — Panel de la federación</h3>
+    <p class="mod-desc" style="min-height:0">Cómo la FPS carga su información: torneos, resultados, streaming y noticias, con estados de publicación.</p>
+    <div class="browser-wrap"><div class="browser">
+      <div class="b-top">
+        <span class="b-dots"><i></i><i></i><i></i></span>
+        <span class="b-url">admin.panamsquash.app/torneos</span>
+        <span class="b-lang"><span class="on">ES</span><span>EN</span><span>PT</span></span>
+      </div>
+      <div class="b-frame"><div class="b-screen">
+        <div class="side">
+          <div class="s-logo"><img class="logo-img sm" src="data:image/png;base64,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" alt="Panam Squash"></div>
+          <div class="s-item on"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/></svg>TORNEOS</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/></svg>JUGADORES</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/></svg>STREAMING</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M3.5 8.5 L9 3.5 L14.5 8.5"/><path d="M5.5 8 V14 H12.5 V8"/></svg>NOTICIAS</div>
+          <div class="s-item"><svg width="14" height="14" viewBox="0 0 18 18"><path d="M9 2.5 v4 M9 11.5 v4 M2.5 9 h4 M11.5 9 h4 M5 5 l2.2 2.2 M10.8 10.8 l2.2 2.2 M13 5 l-2.2 2.2 M7.2 10.8 l-2.2 2.2"/></svg>USUARIOS</div>
+          <div class="s-foot">CMS · FPS<br>SOLO ADMINS</div>
+        </div>
+        <div class="main">
+          <div class="adminbar">SB · Sergio Becerra<span class="role">ADMIN</span></div>
+          <div class="card" style="flex:1;overflow:hidden">
+            <div class="lbl mono">TORNEOS 2026 — 5 REGISTROS</div>
+            <div class="row"><span class="nm">Panamericano Master · Medellín</span><span class="pts">JUN 2026</span><span class="statuschip pub">PUBLICADO</span><span class="editlink">EDITAR</span></div>
+            <div class="row"><span class="nm">Panamericano Junior · Lima</span><span class="pts">18–24 JUL</span><span class="statuschip live2">EN VIVO</span><span class="editlink">EDITAR</span></div>
+            <div class="row"><span class="nm">Panam. por Equipos · Guayaquil</span><span class="pts">12–18 OCT</span><span class="statuschip pub">PUBLICADO</span><span class="editlink">EDITAR</span></div>
+            <div class="row"><span class="nm">Panamericano Adulto · Bogotá</span><span class="pts">NOV 2026</span><span class="statuschip draft">BORRADOR</span><span class="editlink">EDITAR</span></div>
+            <div class="row"><span class="nm">Copa Federación · CDMX</span><span class="pts">DIC 2026</span><span class="statuschip draft">BORRADOR</span><span class="editlink">EDITAR</span></div>
+          </div>
+          <div class="btn-dark" style="font-size:8px">+ NUEVO TORNEO</div>
+        </div>
+        <div class="rail" style="width:270px">
+          <div class="lbl mono" style="margin-bottom:2px">EDITANDO · PANAM. POR EQUIPOS</div>
+          <div class="card">
+            <div class="field"><label>Nombre</label><div class="fv">Panamericano por Equipos 2026</div></div>
+            <div class="field"><label>Sede</label><div class="fv">Guayaquil, Ecuador</div></div>
+            <div class="field"><label>Fechas</label><div class="fv">12 – 18 OCT 2026</div></div>
+            <div class="field"><label>Cuadros · Club Locker</label><div class="fv mono2">clublocker.com/org/fps/eq2026</div></div>
+            <div class="field" style="margin-bottom:0"><label>Streaming · YouTube</label><div class="fv mono2">youtube.com/@panamsquash/live</div></div>
+          </div>
+          <div class="btn-dark">PUBLICAR CAMBIOS</div>
+          <div class="btn-dark" style="background:transparent;color:#75715F;box-shadow:inset 0 0 0 1px #C9C5B8">GUARDAR BORRADOR</div>
         </div>
       </div></div>
     </div></div>
@@ -927,7 +1215,8 @@
     "HOME":    '<path d="M3.5 8.5 L9 3.5 L14.5 8.5"/><path d="M5.5 8 V14 H12.5 V8"/>',
     "PLAYERS": '<circle cx="9" cy="6" r="2.6"/><path d="M4 14 C4 10.5 14 10.5 14 14"/>',
     "TORNEOS": '<path d="M3.5 4.5 h3 v2.5 h3.5"/><path d="M3.5 13.5 h3 v-2.5 h3.5"/><path d="M10 9 h4.5"/>',
-    "LIVE":    '<path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/>'
+    "LIVE":    '<path d="M6.5 4.5 L13 9 L6.5 13.5 Z"/>',
+    "AI":      '<path d="M9 2.5 v4 M9 11.5 v4 M2.5 9 h4 M11.5 9 h4 M5 5 l2.2 2.2 M10.8 10.8 l2.2 2.2 M13 5 l-2.2 2.2 M7.2 10.8 l-2.2 2.2"/>'
   };
   document.querySelectorAll(".nav").forEach(function(el){
     var label = el.textContent.trim().toUpperCase();
